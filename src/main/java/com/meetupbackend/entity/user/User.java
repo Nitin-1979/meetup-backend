@@ -3,6 +3,7 @@ package com.meetupbackend.entity.user;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -28,8 +29,10 @@ public class User {
 
 //    @Column(name="interest")
 //    private List<String> interest;
-
-    public User(String firstName, String lastName, String email, String password, LocalDate dob, List<String> interest) {
+    public User() {
+        // Default constructor
+    }
+    public User(String firstName, String lastName, String email, String password, LocalDate dob) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -78,9 +81,6 @@ public class User {
         this.password = password;
     }
 
-    public LocalDate getDob() {
-        return dob;
-    }
 
     public void setDob(LocalDate dob) {
         this.dob = dob;

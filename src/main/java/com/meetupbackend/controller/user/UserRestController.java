@@ -3,12 +3,13 @@ package com.meetupbackend.controller.user;
 import com.meetupbackend.entity.user.User;
 import com.meetupbackend.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
@@ -23,5 +24,11 @@ public class UserRestController {
         return userService.findAll();
     }
 
+    @PostMapping("/users")
+    public User addUser(@RequestBody Map<String,String> requestBody) {
+        System.out.println(requestBody);
+        User dbUser = userService.save(requestBody);
+        return dbUser;
+    }
 
 }
