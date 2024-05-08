@@ -27,7 +27,18 @@ public class User {
     @Column(name="dob")
     private LocalDate dob;
 
-//    @Column(name="interest")
+    @Column(name="roles")
+    private String roles;
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    //    @Column(name="interest")
 //    private List<String> interest;
     public User() {
         // Default constructor
