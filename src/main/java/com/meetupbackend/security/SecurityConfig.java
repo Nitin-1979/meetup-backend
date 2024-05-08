@@ -45,7 +45,6 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authz) -> authz
                 .anyRequest().authenticated()
         );
-        http.formLogin(withDefaults());
         http.httpBasic();
         http.csrf().disable();
         return http.build();
