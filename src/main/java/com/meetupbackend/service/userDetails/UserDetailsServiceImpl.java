@@ -1,14 +1,13 @@
 package com.meetupbackend.service.userDetails;
 
 import com.meetupbackend.entity.user.User;
-import com.meetupbackend.entity.userDetails.UserDetailsModel;
+import com.meetupbackend.util.models.userDetails.UserDetailsModel;
 import com.meetupbackend.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

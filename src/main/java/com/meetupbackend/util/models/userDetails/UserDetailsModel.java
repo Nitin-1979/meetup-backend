@@ -1,4 +1,4 @@
-package com.meetupbackend.entity.userDetails;
+package com.meetupbackend.util.models.userDetails;
 
 import com.meetupbackend.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;

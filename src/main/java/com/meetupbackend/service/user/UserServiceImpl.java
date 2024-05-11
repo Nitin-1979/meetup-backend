@@ -39,7 +39,6 @@ public class UserServiceImpl implements UserService {
         String encodedPassword = passwordEncoder.encode(reqBody.get("password"));
         LocalDate date =  LocalDate.parse(reqBody.get("dob"));
         User user = new User(reqBody.get("firstName"),reqBody.get("lastName"),reqBody.get("email"),encodedPassword,date);
-        System.out.println(encodedPassword+date);
         return userRepository.save(user);
     }
 

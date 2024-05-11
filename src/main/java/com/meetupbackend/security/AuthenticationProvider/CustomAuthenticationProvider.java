@@ -1,6 +1,5 @@
-package com.meetupbackend.security;
+package com.meetupbackend.security.AuthenticationProvider;
 
-import com.meetupbackend.entity.userDetails.UserDetailsModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
