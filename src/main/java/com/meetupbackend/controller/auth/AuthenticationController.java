@@ -3,6 +3,7 @@ package com.meetupbackend.controller.auth;
 import com.meetupbackend.entity.user.User;
 import com.meetupbackend.util.models.loginModel.LoginResponse;
 import com.meetupbackend.service.auth.AuthenticationService;
+import com.meetupbackend.util.models.userDetails.UserDetails;
 import com.meetupbackend.util.services.user.jwt.JwtService;
 import com.meetupbackend.service.user.UserService;
 import com.meetupbackend.util.auth.AuthenticationSystem;
@@ -27,7 +28,7 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse>  login(@RequestBody Map<String,String> requestBody){
         Boolean ans = AuthenticationSystem.isLogged();
-        User registeredUser = authenticationService.authenticate(requestBody);
+        UserDetails registeredUser = authenticationService.authenticate(requestBody);
         String jwtToken = jwtService.generateToken(registeredUser);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
