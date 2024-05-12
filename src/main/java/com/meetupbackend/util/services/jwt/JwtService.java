@@ -1,4 +1,4 @@
-package com.meetupbackend.util.services.user.jwt;
+package com.meetupbackend.util.services.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
