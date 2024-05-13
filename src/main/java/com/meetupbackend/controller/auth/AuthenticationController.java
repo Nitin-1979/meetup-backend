@@ -51,4 +51,8 @@ public class AuthenticationController {
         return addedUser;
     }
 
+    @PostMapping("/logout")
+    public String logout(){
+        return "Logged Out successfully";
+    }
 }
