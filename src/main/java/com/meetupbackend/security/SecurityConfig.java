@@ -54,6 +54,8 @@ public class SecurityConfig {
         http.authenticationProvider(authenticationProvider);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement();
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
+
 //        http.sessionManagement(SessionCreationPolicy.STATELESS);
         http.csrf().disable();
         return http.build();
