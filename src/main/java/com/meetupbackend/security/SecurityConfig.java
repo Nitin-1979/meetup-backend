@@ -64,7 +64,8 @@ public class SecurityConfig {
     }
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/api/signup");
+        return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/auth/**");
+
     }
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
