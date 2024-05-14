@@ -37,7 +37,6 @@ public class UserController {
     public ResponseEntity<Optional<User>> me(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails user = (UserDetails) authentication.getPrincipal();
-        System.out.println("principal in me "+user.getUsername());
         Optional<User> currentUser = userRepository.findByEmail(user.getUsername());
         return ResponseEntity.ok(currentUser);
 

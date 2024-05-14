@@ -67,7 +67,6 @@ public class AuthenticationController {
             }
         }
         jwtblacklistService.save(authHeader);
-        System.out.println("sdfsdfsd"+authHeader);
         return "Logged Out successfully";
     }
 }

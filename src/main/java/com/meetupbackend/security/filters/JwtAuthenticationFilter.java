@@ -48,16 +48,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         }
-//        if(authHeader != null){
-//            jwtblacklistService.save(authHeader);
-//        }
-//        List<String> BlacklistedJwt = jwtblacklistService.findaAll();
-//        for (String str : BlacklistedJwt) {
-//            if (str.contains(authHeader)) {
-//                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Missing JWT Token");
-//                return;
-//            }
-//        }
+        String requestURL = request.getRequestURL().toString();
+        if(!(requestURL.contains("auth/login") || requestURL.contains("auth/signup"))){
+            List<String> BlacklistedJwt = jwtblacklistService.findaAll();
+            for (String str : BlacklistedJwt) {
+                if (str.contains(authHeader)) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Missing JWT Token");
+                    return;
+                }
+            }
+        }
 
         if (authHeader == null) {
             filterChain.doFilter(request, response);
