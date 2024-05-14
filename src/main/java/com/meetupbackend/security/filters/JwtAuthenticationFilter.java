@@ -1,5 +1,6 @@
 package com.meetupbackend.security.filters;
 
+import com.meetupbackend.service.JwtblacklistService.JwtblacklistService;
 import com.meetupbackend.util.services.jwt.JwtService;
 //import com.meetupbackend.service.userDetails.UserDetailsService;
 import jakarta.servlet.FilterChain;
@@ -18,20 +19,23 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private  HandlerExceptionResolver handlerExceptionResolver;
-
+    private JwtblacklistService jwtblacklistService;
     private  JwtService jwtService;
     private UserDetailsService userDetailsService;
     public JwtAuthenticationFilter(
             JwtService jwtService,
             UserDetailsService userDetailsService,
+            JwtblacklistService jwtblacklistService,
             HandlerExceptionResolver handlerExceptionResolver
     ) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
+        this.jwtblacklistService = jwtblacklistService;
         this.handlerExceptionResolver = handlerExceptionResolver;
     }
     @Override
@@ -44,7 +48,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         }
+        if(authHeader != null){
+            jwtblacklistService.save(authHeader);
+        }
 
+        List<String> BlacklistedJwt = jwtblacklistService.findaAll();
+        for (String str : BlacklistedJwt) {
+            if (str.contains(authHeader)) {
+                System.out.println("yes it contains");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Missing JWT Token");
+                return;
+            }
+        }
 
         if (authHeader == null) {
             filterChain.doFilter(request, response);
