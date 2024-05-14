@@ -1,11 +1,14 @@
 package com.meetupbackend.controller.auth;
 
 import com.meetupbackend.entity.user.User;
+import com.meetupbackend.service.JwtblacklistService.JwtblacklistService;
 import com.meetupbackend.util.models.loginModel.LoginResponse;
 import com.meetupbackend.service.auth.AuthenticationService;
 import com.meetupbackend.util.models.userDetails.UserDetails;
 import com.meetupbackend.util.services.jwt.JwtService;
 import com.meetupbackend.util.auth.AuthenticationSystem;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -20,11 +23,13 @@ import java.util.Map;
 //@CrossOrigin(origins = "http://localhost:3000")
 public class AuthenticationController {
     private JwtService jwtService;
+    private JwtblacklistService jwtblacklistService;
 
     private AuthenticationService authenticationService;
     @Autowired
-    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService){
+    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService, JwtblacklistService jwtblacklistService){
         this.jwtService = jwtService;
+        this.jwtblacklistService = jwtblacklistService;
         this.authenticationService = authenticationService;
     }
     @PostMapping("/login")
@@ -51,8 +56,18 @@ public class AuthenticationController {
         return addedUser;
     }
 
-    @PostMapping("/logout")
-    public String logout(){
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        String authHeader =null;
+        if(request.getCookies() != null){
+            for(Cookie cookie: request.getCookies()){
+                if(cookie.getName().equals("jwtToken")){
+                    authHeader = cookie.getValue();
+                }
+            }
+        }
+        jwtblacklistService.save(authHeader);
+        System.out.println("sdfsdfsd"+authHeader);
         return "Logged Out successfully";
     }
 }
