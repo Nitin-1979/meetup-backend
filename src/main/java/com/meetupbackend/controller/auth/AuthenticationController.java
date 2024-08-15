@@ -20,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 //@CrossOrigin(origins = "http://localhost:3000")
 public class AuthenticationController {
     private JwtService jwtService;
@@ -52,6 +52,9 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public User addUser(@RequestBody Map<String,String> requestBody) {
+        System.out.println("===========================");
+        System.out.println("called here");
+        System.out.println("===========================");
         Boolean ans = AuthenticationSystem.isLogged();
         User addedUser = authenticationService.signup(requestBody);
         return addedUser;

@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class UserController {
     private UserUtilService userUtilService;
     private UserRepository userRepository;
@@ -30,9 +30,7 @@ public class UserController {
 //    public ResponseEntity<User> me(){
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        Object principal = authentication.getPrincipal();
-//
 //        return ResponseEntity.ok(currentUser);
-//
 //    }
 
     @GetMapping("/me")
